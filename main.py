@@ -31,6 +31,7 @@ async def commands(update: Update, context: CallbackContext):
 
 # إنشاء التطبيق وإضافة الأوامر
 def main():
+    print(f"Using Token: {TOKEN}")  
     app = Application.builder().token(TOKEN.strip()).build()
 
     app.add_handler(CommandHandler("start", start))
