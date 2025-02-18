@@ -1,43 +1,44 @@
-from telegram import Update, Bot
-from telegram.ext import Updater, CommandHandler, CallbackContext
+import logging
+import os
+from telegram import Update
+from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackContext
 
-# استبدل هذا بالتوكن الخاص بك
-TOKEN = "7975728007:AAGyHSOIr42qOA6BmXj_EQF30fX2jQpP0dA"
+# الحصول على التوكن من المتغيرات البيئية
+TOKEN = os.getenv("TOKEN")
 
-bot = Bot(token=TOKEN)
-updater = Updater(token=TOKEN)
-dispatcher = updater.dispatcher
+# تهيئة نظام تسجيل الأخطاء
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+)
+logger = logging.getLogger(__name__)
 
-# قائمة الأوامر
-commands = {
-    "games": "🎮 ألعاب ممتعة",
-    "anime_info": "🏮 معلومات عن أنمي",
-    "download": "📥 تحميل من مواقع التواصل",
-    "convert": "🎨 تحويل صورة/فيديو",
-    "marriage": "💍 زواج عشوائي",
-    "admin": "⚡ أوامر المشرفين",
-    "owner": "🔥 أوامر المالك فقط"
-}
+# دالة بدء التشغيل
+async def start(update: Update, context: CallbackContext):
+    await update.message.reply_text("👑 أهلاً بك، أنا عبد ميليوداس! استخدم /القائمة لرؤية الأوامر المتاحة.")
 
-# صورة ميليوداس (يجب استضافتها على الإنترنت أو رفعها يدوياً)
-meliodas_image_url = "https://i.imgur.com/MeliodasImage.jpg"
+# دالة عرض قائمة الأوامر
+async def commands(update: Update, context: CallbackContext):
+    commands_list = """
+    ✅ /games - 🎮 ألعاب ممتعة
+    ✅ /anime_info - 🏮 معلومات عن أنمي
+    ✅ /download - 📥 تحميل من مواقع التواصل
+    ✅ /convert - 🎨 تحويل صورة/فيديو
+    ✅ /marriage - 💍 زواج عشوائي
+    ✅ /admin - ⚡ أوامر المشرفين
+    ✅ /owner - 🔥 أوامر المالك فقط
+    """
+    await update.message.reply_text(commands_list)
 
-def start(update: Update, context: CallbackContext):
-    message = "👑 أهلاً بك، أنا *عبد ميليوداس*! البوت الخاص بنقابة فلود.\n"
-    message += "استخدم /القائمة لرؤية قائمة الأوامر المتاحة."
-    update.message.reply_photo(photo=meliodas_image_url, caption=message, parse_mode="Markdown")
+# إنشاء التطبيق وإضافة الأوامر
+def main():
+    app = Application.builder().token(TOKEN).build()
 
-def commands_list(update: Update, context: CallbackContext):
-    message = "📜 *قائمة الأوامر الخاصة بـ عبد ميليوداس:*\n\n"
-    for cmd, desc in commands.items():
-        message += f"✅ `/{cmd}` - {desc}\n"
-    
-    update.message.reply_photo(photo=meliodas_image_url, caption=message, parse_mode="Markdown")
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("commands", commands))
 
-# إضافة الأوامر إلى البوت
-dispatcher.add_handler(CommandHandler("start", start))
-dispatcher.add_handler(CommandHandler("commands", commands_list))
+    # تشغيل البوت
+    logger.info("✅ البوت يعمل الآن!")
+    app.run_polling()
 
-# بدء تشغيل البوت
-updater.start_polling()
-updater.idle()
+if __name__ == "__main__":
+    main()
