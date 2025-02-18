@@ -1,12 +1,11 @@
-# بوت عبد ميليوداس - تشغيل رئيسي
-
-from telegram import Update, Bot, InputMediaPhoto
+from telegram import Update, Bot
 from telegram.ext import Updater, CommandHandler, CallbackContext
 
+# استبدل هذا بالتوكن الخاص بك
 TOKEN = "7975728007:AAGyHSOIr42qOA6BmXj_EQF30fX2jQpP0dA"
 
 bot = Bot(token=TOKEN)
-updater = Updater(token=TOKEN, use_context=True)
+updater = Updater(token=TOKEN)
 dispatcher = updater.dispatcher
 
 # قائمة الأوامر
@@ -24,14 +23,15 @@ commands = {
 meliodas_image_url = "https://i.imgur.com/MeliodasImage.jpg"
 
 def start(update: Update, context: CallbackContext):
-    message = "👑 أهلاً بك، أنا عبد ميليوداس! البوت الخاص بنقابة فلود."
-    message += "استخدم .القائمة لرؤية قائمة الأوامر المتاحة."
+    message = "👑 أهلاً بك، أنا *عبد ميليوداس*! البوت الخاص بنقابة فلود.\n"
+    message += "استخدم /commands لرؤية قائمة الأوامر المتاحة."
     update.message.reply_photo(photo=meliodas_image_url, caption=message, parse_mode="Markdown")
 
 def commands_list(update: Update, context: CallbackContext):
-    message = "\U0001F4DC قائمة الأوامر الخاصة بـ عبد ميليوداس:"
+    message = "📜 *قائمة الأوامر الخاصة بـ عبد ميليوداس:*\n\n"
     for cmd, desc in commands.items():
-        message += f"✅ /{cmd} - {desc}
+        message += f"✅ `/{cmd}` - {desc}\n"
+    
     update.message.reply_photo(photo=meliodas_image_url, caption=message, parse_mode="Markdown")
 
 # إضافة الأوامر إلى البوت
