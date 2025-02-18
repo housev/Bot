@@ -29,7 +29,7 @@ def start(update: Update, context: CallbackContext):
     update.message.reply_photo(photo=meliodas_image_url, caption=message, parse_mode="Markdown")
 
 def commands_list(update: Update, context: CallbackContext):
-    message = "📜 *قائمة الأوامر الخاصة بـ عبد ميليوداس:*
+    message = "📜 قائمة الأوامر الخاصة بـ عبد ميليوداس:
 
 "
     for cmd, desc in commands.items():
