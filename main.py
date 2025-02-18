@@ -3,7 +3,7 @@
 from telegram import Update, Bot, InputMediaPhoto
 from telegram.ext import Updater, CommandHandler, CallbackContext
 
-TOKEN = "YOUR_BOT_TOKEN_HERE"
+TOKEN = "7975728007:AAGyHSOIr42qOA6BmXj_EQF30fX2jQpP0dA"
 
 bot = Bot(token=TOKEN)
 updater = Updater(token=TOKEN, use_context=True)
