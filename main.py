@@ -24,12 +24,12 @@ commands = {
 meliodas_image_url = "https://i.imgur.com/MeliodasImage.jpg"
 
 def start(update: Update, context: CallbackContext):
-    message = "👑 أهلاً بك، أنا عبد ميليوداس! البوت الخاص بنقابة الأنمي."
-    message += "استخدم /commands لرؤية قائمة الأوامر المتاحة."
+    message = "👑 أهلاً بك، أنا عبد ميليوداس! البوت الخاص بنقابة فلود."
+    message += "استخدم .القائمة لرؤية قائمة الأوامر المتاحة."
     update.message.reply_photo(photo=meliodas_image_url, caption=message, parse_mode="Markdown")
 
 def commands_list(update: Update, context: CallbackContext):
-    message = "📜 قائمة الأوامر الخاصة بـ عبد ميليوداس:
+    message = "📜 قائمة الأوامر الخاصة بـ عبد ميليوداس:"
 
 "
     for cmd, desc in commands.items():
