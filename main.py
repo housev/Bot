@@ -24,9 +24,7 @@ commands = {
 meliodas_image_url = "https://i.imgur.com/MeliodasImage.jpg"
 
 def start(update: Update, context: CallbackContext):
-    message = "👑 أهلاً بك، أنا *عبد ميليوداس*! البوت الخاص بنقابة الأنمي.
-
-"
+    message = "👑 أهلاً بك، أنا *عبد ميليوداس*! البوت الخاص بنقابة الأنمي."
     message += "استخدم /commands لرؤية قائمة الأوامر المتاحة."
     update.message.reply_photo(photo=meliodas_image_url, caption=message, parse_mode="Markdown")
 
